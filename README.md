@@ -1,4 +1,4 @@
-# Notex Server
+# Notex Server!
 
 - Supports simple <abbr title="Create, Read, Update & Delete">CRUD</abbr> operations for notes.
 - Soon, our server will have user sessions and authentication.
