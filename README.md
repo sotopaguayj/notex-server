@@ -28,11 +28,11 @@ Server application to support the Notex Client.
 
 1. Clone the repository:
    ```bash
-   git clone (repo)
+   git clone https://github.com/sotopaguayj/notex-server.git notex-server
    ```
 2. Enter the repository:
    ```bash
-   cd (repo)
+   cd notex-server
    ```
 3. Install dependencies:
    ```bash
