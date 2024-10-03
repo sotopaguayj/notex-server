@@ -3,16 +3,43 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
-model Note {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  content     String
-  available   Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  state     String?
+  lastname  String
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  mailsReceived Mail[] @relation("destine")
+  mailsSent     Mail[] @relation("origin")
+}
+
+model Mail {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  type      MailType  @default(NORMAL)
+  body      String
+  readed    Boolean   @default(false)
+  subject   String
+  readedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  sendTo    User   @relation(fields: [sendToIDs], references: [id], name: "destine")
+  sendToIDs String @db.ObjectId
+
+  sendBy   User   @relation(fields: [sendByID], references: [id], name: "origin")
+  sendByID String @db.ObjectId
+}
+
+enum MailType {
+  FIRE
+  URGENT
+  NORMAL
 }

@@ -1,22 +1,10 @@
 import "dotenv/config";
 import { Application } from "express";
-import notesRoutes from "../app/notes/notes.router";
-
-// const BASE_PATH = process.env.APP_PATH;
+import userRoutes from "../app/user/user.route";
 
 export default class AppRoutes {
   constructor(app: Application) {
-    app.use("/api", notesRoutes);
-    // this.showRoutes();
+    const user = userRoutes.getInstance();
+    app.use("/api", user.router);
   }
-  // showRoutes() {
-  //   notesRoutes.stack.forEach((r) =>
-  //     console.log(
-  //       // @ts-ignores
-  //       `[ROUTE][${Object.keys(r.route?.methods)[0].toUpperCase()}] ${
-  //         BASE_PATH + "/api" + r.route?.path
-  //       }`
-  //     )
-  //   );
-  // }
 }
